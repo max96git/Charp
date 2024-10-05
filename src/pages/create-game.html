@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Game</title>
+    <style>
+        canvas { border: 1px solid black; }
+    </style>
+</head>
+<body>
+    <h1>Create a New Game</h1>
+    <form id="create-game-form">
+        <label for="title">Game Title:</label>
+        <input type="text" id="title" required>
+        <br>
+        <label for="description">Game Description:</label>
+        <textarea id="description" required></textarea>
+        <br>
+        <label for="preview">Game Preview URL:</label>
+        <input type="text" id="preview" required>
+        <br>
+        <label for="gameData">3D Game Data (JSON):</label>
+        <textarea id="gameData" required></textarea>
+        <br>
+        <button type="submit">Create Game</button>
+    </form>
+
+    <script>
+        document.getElementById('create-game-form').onsubmit = async function (event) {
+            event.preventDefault();
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const preview = document.getElementById('preview').value;
+            const gameData = document.getElementById('gameData').value;
+
+            try {
+                const response = await fetch('/api/games', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ title, description, preview, gameData }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to create game');
+                }
+
+                const newGame = await response.json();
+                alert(`Game "${newGame.title}" created successfully!`);
+                window.location.href = 'games.html'; // Redirect to the games page after creation
+            } catch (error) {
+                console.error('Error creating game:', error);
+                alert('Error creating game. Please try again.');
+            }
+        };
+    </script>
+</body>
+</html>

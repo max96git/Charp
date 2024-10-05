@@ -22,6 +22,10 @@
     {
       "src": "/create-game",
       "dest": "/src/pages/create-game.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/src/$1"
     }
   ]
 }

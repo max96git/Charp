@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node backend/server.js"
   },
-  "author": "Your Name",
+  "author": "Warden",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",

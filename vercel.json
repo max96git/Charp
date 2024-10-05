@@ -2,30 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "src/index.html",
-      "use": "@vercel/static"
+      "src": "server.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/",
-      "dest": "/src/index.html"
-    },
-    {
-      "src": "/avatar",
-      "dest": "/src/avatar.html"
-    },
-    {
-      "src": "/game-play",
-      "dest": "/src/pages/game-play.html"
-    },
-    {
-      "src": "/create-game",
-      "dest": "/src/pages/create-game.html"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/src/$1"
+      "dest": "/server.js"
     }
   ]
 }

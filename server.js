@@ -9,23 +9,23 @@ app.use(express.json());
 // Serve static files from the src folder
 app.use(express.static(path.join(__dirname, 'src')));
 
-// Serve index.html (home page)
 app.get('/', (req, res) => {
+    console.log('Home page requested');
     res.sendFile(path.join(__dirname, 'src', 'index.html'));
 });
 
-// Serve avatar.html
 app.get('/avatar', (req, res) => {
+    console.log('Avatar page requested');
     res.sendFile(path.join(__dirname, 'src', 'avatar.html'));
 });
 
-// Serve game-play.html
 app.get('/game-play', (req, res) => {
+    console.log('Game play page requested');
     res.sendFile(path.join(__dirname, 'src', 'pages', 'game-play.html'));
 });
 
-// Serve create-game.html
 app.get('/create-game', (req, res) => {
+    console.log('Create game page requested');
     res.sendFile(path.join(__dirname, 'src', 'pages', 'create-game.html'));
 });
 

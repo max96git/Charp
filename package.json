@@ -1,17 +1,15 @@
 {
   "name": "charp",
   "version": "1.0.0",
-  "description": "A multiplayer game platform like Roblox with game editor and 3D avatar customization.",
-  "main": "backend/server.js",
+  "description": "A Roblox-like web platform for 3D game creation.",
+  "main": "server.js",
   "scripts": {
-    "start": "node backend/server.js"
+    "start": "node server.js"
   },
-  "author": "Warden",
-  "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "socket.io": "^4.0.1",
-    "ws": "^8.0.0"
+    "cors": "^2.8.5"
   },
-  "devDependencies": {}
+  "author": "Warden",
+  "license": "MIT"
 }

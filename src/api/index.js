@@ -69,5 +69,32 @@ router.get('/users/:id', (req, res) => {
     res.json(user);
 });
 
+let avatars = {}; // Store avatars by user ID
+
+// Endpoint to save an avatar
+router.post('/avatars/:userId', (req, res) => {
+    const { userId } = req.params;
+    const { skinColor, shirtColor, pantsColor } = req.body;
+
+    if (!skinColor || !shirtColor || !pantsColor) {
+        return res.status(400).json({ error: 'All color fields are required.' });
+    }
+
+    avatars[userId] = { skinColor, shirtColor, pantsColor };
+    res.status(201).json(avatars[userId]);
+});
+
+// Endpoint to get an avatar
+router.get('/avatars/:userId', (req, res) => {
+    const { userId } = req.params;
+    const avatar = avatars[userId];
+
+    if (!avatar) {
+        return res.status(404).json({ error: 'Avatar not found' });
+    }
+
+    res.json(avatar);
+});
+
 // Export the router
 module.exports = router;

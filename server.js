@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-// Serve static files (like CSS, JS) from the src folder
+// Serve static files from the src folder
 app.use(express.static(path.join(__dirname, 'src')));
 
 // Serve index.html (home page)

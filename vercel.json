@@ -6,6 +6,13 @@
       "destination": "/"
     }
   ],
+  "redirects": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/server/routes/$1",
+      "permanent": true
+    }
+  ],
   "builds": [
     {
       "src": "client/index.html",
@@ -30,16 +37,6 @@
     {
       "src": "server/app.js",
       "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/server/routes/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/client/$1"
     }
   ]
 }

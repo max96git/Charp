@@ -1,0 +1,45 @@
+{
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/old-path",
+      "destination": "/"
+    }
+  ],
+  "builds": [
+    {
+      "src": "client/index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "client/login.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "client/dashboard.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "client/play.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "client/studio.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "server/app.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/server/routes/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/client/$1"
+    }
+  ]
+}

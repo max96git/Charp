@@ -1,33 +1,41 @@
-// server/routes/auth.js
+// Import Firebase
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { firebaseConfig } from '../../database/config';
 
-const express = require('express');
-const router = express.Router();
-const admin = require('firebase-admin');
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-// User login
-router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+// Handle Login
+document.getElementById('login-form')?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const errorDiv = document.getElementById('login-error');
+
     try {
-        const userCredential = await admin.auth().signInWithEmailAndPassword(email, password);
-        res.status(200).json({ user: userCredential.user });
+        await signInWithEmailAndPassword(auth, email, password);
+        window.location.href = 'dashboard.html';
     } catch (error) {
-        console.error('Login error:', error);
-        res.status(401).json({ error: 'Invalid email or password' });
+        errorDiv.textContent = error.message;
     }
 });
 
-// User signup
-router.post('/signup', async (req, res) => {
-    const { email, password } = req.body;
+// Handle Sign Up
+document.getElementById('signup-form')?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    
+    const email = document.getElementById('signup-email').value;
+    const password = document.getElementById('signup-password').value;
+    const errorDiv = document.getElementById('signup-error');
+
     try {
-        const userRecord = await admin.auth().createUser({ email, password });
-        res.status(201).json({ user: userRecord });
+        await createUserWithEmailAndPassword(auth, email, password);
+        // Redirect to dashboard or other page after signup
+        window.location.href = 'dashboard.html';
     } catch (error) {
-        console.error('Signup error:', error);
-        res.status(400).json({ error: 'Failed to create user' });
+        errorDiv.textContent = error.message;
     }
 });
-
-// Other auth-related routes can be added here
-
-module.exports = router;

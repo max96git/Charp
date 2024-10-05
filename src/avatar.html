@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Charp - Avatar Management</title>
+</head>
+<body>
+    <h1>Manage Your Avatar</h1>
+    <div id="avatar-container">
+        <canvas id="avatar-canvas" width="400" height="400"></canvas>
+    </div>
+    <div id="avatar-controls">
+        <label for="skin-color">Skin Color:</label>
+        <input type="color" id="skin-color" value="#ffcc99">
+
+        <label for="shirt-color">Shirt Color:</label>
+        <input type="color" id="shirt-color" value="#333333">
+
+        <label for="pants-color">Pants Color:</label>
+        <input type="color" id="pants-color" value="#333333">
+
+        <button id="save-avatar">Save Avatar</button>
+    </div>
+    <a href="index.html">Back to Home</a>
+
+    <script src="scripts/three.min.js"></script>
+    <script>
+        let scene, camera, renderer, avatar;
+
+        function init() {
+            // Set up the scene
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('avatar-canvas') });
+            renderer.setSize(400, 400);
+            camera.position.z = 5;
+
+            // Create a basic avatar (simplified)
+            const geometry = new THREE.BoxGeometry(1, 2, 1); // Body
+            const material = new THREE.MeshBasicMaterial({ color: '#ffcc99' });
+            avatar = new THREE.Mesh(geometry, material);
+            scene.add(avatar);
+
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            avatar.rotation.y += 0.01; // Rotate avatar for effect
+            renderer.render(scene, camera);
+        }
+
+        function updateAvatar() {
+            const skinColor = document.getElementById('skin-color').value;
+            const shirtColor = document.getElementById('shirt-color').value;
+            const pantsColor = document.getElementById('pants-color').value;
+
+            // Update avatar colors (for demonstration)
+            avatar.material.color.set(skinColor);
+            // You can expand this to have separate parts for shirt/pants
+        }
+
+        document.getElementById('skin-color').addEventListener('input', updateAvatar);
+        document.getElementById('shirt-color').addEventListener('input', updateAvatar);
+        document.getElementById('pants-color').addEventListener('input', updateAvatar);
+        document.getElementById('save-avatar').addEventListener('click', () => {
+            alert('Avatar saved! (This functionality can be expanded.)');
+            // Here you would typically send the avatar data to your server.
+        });
+
+        init();
+    </script>
+</body>
+</html>

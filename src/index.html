@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Charp - Home</title>
+</head>
+<body>
+    <h1>Welcome to Charp</h1>
+    <a href="create-game.html">Create a Game</a>
+    <a href="avatar.html">Avatar</a>
+    <a href="game-play.html">Play Game</a>
+    <div id="games-list"></div>
+
+    <script>
+        async function fetchGames() {
+            try {
+                const response = await fetch('/api/games');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch games');
+                }
+                const games = await response.json();
+                const gamesList = document.getElementById('games-list');
+                games.forEach(game => {
+                    const gameCard = document.createElement('div');
+                    gameCard.className = 'game-card';
+                    gameCard.innerHTML = `<h2>${game.title}</h2><p>${game.description}</p>`;
+                    gamesList.appendChild(gameCard);
+                });
+            } catch (error) {
+                console.error('Error fetching games:', error);
+            }
+        }
+
+        fetchGames();
+    </script>
+</body>
+</html>
